@@ -29,7 +29,7 @@ docker-compose up -d --build
 
 Access the node container:
 ```
-docker exec -it  <container-id> /bin/sh
+docker exec -it <container-id> sh
 ```
 
 ### Migrations
@@ -38,4 +38,11 @@ Inside container, you must run the migrations:
 
 ```
 adonis migratrion:run
+```
+
+### Controllers
+
+Create controllers on cli:
+```
+adonis make:controller User --type http
 ```
