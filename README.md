@@ -19,10 +19,23 @@ adonis new yardstick --api-only
 or manually clone the repo and then run `npm install`.
 
 
+### Docker
+
+Run the following command to up the serve.
+
+```
+docker-compose up -d --build
+```
+
+Access the node container:
+```
+docker exec -it  <container-id> /bin/sh
+```
+
 ### Migrations
 
-Run the following command to run startup migrations.
+Inside container, you must run the migrations:
 
-```js
-adonis migration:run
+```
+adonis migratrion:run
 ```
