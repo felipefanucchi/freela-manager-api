@@ -9,16 +9,16 @@ services:
       - 3333:3333
     volumes:
       - .:/home/node/app
-    links:
+    depends_on:
       - db
 
   db:
-    image: mysql
+    image: mysql:5.7
     container_name: freela_manager_db
     volumes:
       - ./mysql:/var/lib/mysql
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       - MYSQL_DATABASE=freelamanager_db
       - MYSQL_ROOT_PASSWORD=root
