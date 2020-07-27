@@ -34,6 +34,8 @@ Inside container, you must run the migrations:
 adonis migratrion:run
 ```
 
+## Optional (CLI Commands)
+
 ### Controllers
 
 Create controllers on cli:
