@@ -18,6 +18,9 @@ Run the following command to up the serve.
 docker-compose up -d --build
 ```
 
+After you up the containers, the project is automatically served, in:
+**http://localhost:3333**
+
 Access the node container:
 ```
 docker exec -it <container-id> sh
