@@ -27,3 +27,6 @@ Route.get('/', async () => {
 
   return { user }
 })
+
+// Customers routes
+Route.get('customers', 'CustomerController.index')
