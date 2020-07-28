@@ -10,6 +10,14 @@ This is the boilerplate for creating an API server in AdonisJs, it comes pre-con
 
 ## Setup
 
+### Install dependencies
+Run the following command to install project dependencies.
+```
+npm install
+```
+### Environment
+Create a .env file based on the .env.example file in root folder. 
+
 ### Docker
 
 Run the following command to up the serve.
