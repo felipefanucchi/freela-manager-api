@@ -9,10 +9,10 @@ class AuthController {
 
     const rules = {
       email: 'required|email|unique:users,email|max:254',
-      password: 'required|min:6|max:30',
+      password: 'string|required|min:6|max:30',
       password_confirmation:[ rule('equals', password) ],
-      name: 'required|string|max:80',
-      phone: 'min:10|max:11',
+      name: 'string|required|max:80',
+      phone: 'string|min:10|max:11',
     }
 
     const validation = await validate(data, rules)
