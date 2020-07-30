@@ -1,16 +1,15 @@
 'use strict'
 
-const { validate } = use('Validator')
+const { validate, rule } = use('Validator')
 const User = use('App/Models/User')
 
 class AuthController {
-  store({ request }) {
-    const data = request.only(["name", "email", "phone", "password", "password_confirmation"])
+  async store({ request }) {
+    const data = request.only(["name", "email", "phone", "password"])
 
     const rules = {
       email: 'required|email|unique:users,email|max:254',
       password: 'string|required|min:6|max:30',
-      password_confirmation:[ rule('equals', password) ],
       name: 'string|required|max:80',
       phone: 'string|min:10|max:11',
     }
@@ -21,9 +20,13 @@ class AuthController {
       return validation.messages()
     }
 
-    const user = await User.create(data)
+    try {
+      const user = await User.create(data)
+      return user
+    } catch(err) {
+      return err.message;
+    }
 
-    return user
   }
 
   async login({ request, auth }) {
