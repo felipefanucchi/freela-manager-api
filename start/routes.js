@@ -15,7 +15,7 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-const User = use("App/Models/User");
+const User = use("App/Models/User")
 
 Route.get('/', async () => {
   const user = await User.create({
@@ -29,4 +29,4 @@ Route.get('/', async () => {
 })
 
 // Customers routes
-Route.get('customers', 'CustomerController.index')
+Route.resource('customers', 'CustomerController').apiOnly()
