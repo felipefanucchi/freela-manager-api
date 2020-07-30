@@ -30,12 +30,6 @@ class AuthController {
   }
 
   async login({ request, auth }) {
-    const logged = await auth.getUser();
-
-    if (logged) {
-      return response.send("Você já está logado.")
-    }
-
     const {email, password, remember_me} = request.only(["email", "password", "remember_me"])
 
     const rules = {
@@ -44,17 +38,18 @@ class AuthController {
       remember_me: 'boolean'
     }
 
-    const validation = await validate(data, rules)
+    const validation = await validate({email, password, remember_me}, rules)
 
     if (validation.fails()) {
       return validation.messages()
     }
 
-    const token = await auth
-      .remember(remember_me)
-      .attempt(email, password)
-
-    return token
+    try{
+      const token = await auth.attempt(email, password)
+      return token
+    } catch(err) {
+      return err
+    }
   }
 }
 
