@@ -21,13 +21,13 @@ const Route = use('Route')
 Route.post('/register', 'AuthController.store')
 Route.post('/login', 'AuthController.login')
 
-// Route.group(() => {
-// }).middleware(['auth']);
-
-// Customers routes
-Route.resource('customers', 'CustomerController').apiOnly();
-
 Route.post('/users', 'UserController.create')
 
 Route.post('/session', 'SessionController.login')
 Route.post('/session/recover', 'SessionController.recover')
+
+// Logged in routes
+Route.group(() => {
+  // Customers routes
+  Route.resource('customers', 'CustomerController').apiOnly();
+}).middleware(['auth']);

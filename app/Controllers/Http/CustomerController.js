@@ -4,9 +4,9 @@ const Customer = use('App/Models/Customer');
 
 class CustomerController {
 
-    async index () {
-        const user = await auth.getUser();
-        return await user.customers().fetch();
+    async index ({ auth }) {
+        const user = await auth.getUser()
+        return await user.customers().fetch()
     }
 }
 
