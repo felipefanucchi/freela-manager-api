@@ -18,3 +18,8 @@ const Route = use('Route')
 
 Route.post('/register', 'AuthController.store')
 Route.post('/login', 'AuthController.login')
+
+Route.post('/users', 'UserController.create')
+
+Route.post('/session', 'SessionController.login')
+Route.post('/session/recover', 'SessionController.recover')

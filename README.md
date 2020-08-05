@@ -10,14 +10,13 @@ This is the boilerplate for creating an API server in AdonisJs, it comes pre-con
 
 ## Setup
 
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick --api-only
+### Install dependencies
+Run the following command to install project dependencies.
 ```
-
-or manually clone the repo and then run `npm install`.
-
+npm install
+```
+### Environment
+Create a .env file based on the .env.example file in root folder. 
 
 ### Docker
 
@@ -26,6 +25,9 @@ Run the following command to up the serve.
 ```
 docker-compose up -d --build
 ```
+
+After you up the containers, the project is automatically served, in:
+**http://localhost:3333**
 
 Access the node container:
 ```
@@ -39,6 +41,8 @@ Inside container, you must run the migrations:
 ```
 adonis migratrion:run
 ```
+
+## Optional (CLI Commands)
 
 ### Controllers
 
