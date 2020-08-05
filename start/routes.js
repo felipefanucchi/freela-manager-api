@@ -1,5 +1,7 @@
 'use strict'
 
+const RouteGroup = require('@adonisjs/framework/src/Route/Group');
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -28,5 +30,8 @@ Route.get('/', async () => {
   return { user }
 })
 
+// Route.group(() => {
+// }).middleware(['auth']);
+
 // Customers routes
-Route.resource('customers', 'CustomerController').apiOnly()
+Route.resource('customers', 'CustomerController').apiOnly();
