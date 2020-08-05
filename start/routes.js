@@ -17,21 +17,17 @@ const RouteGroup = require('@adonisjs/framework/src/Route/Group');
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-const User = use("App/Models/User")
 
-Route.get('/', async () => {
-  const user = await User.create({
-    name: 'Felipe Fanucchi',
-    email: 'flfanucchi@gmail.com',
-    phone: '11983086001',
-    password: '123456'
-  });
-
-  return { user }
-})
+Route.post('/register', 'AuthController.store')
+Route.post('/login', 'AuthController.login')
 
 // Route.group(() => {
 // }).middleware(['auth']);
 
 // Customers routes
 Route.resource('customers', 'CustomerController').apiOnly();
+
+Route.post('/users', 'UserController.create')
+
+Route.post('/session', 'SessionController.login')
+Route.post('/session/recover', 'SessionController.recover')
