@@ -28,8 +28,7 @@ class CustomerController {
     const validation = await validate(data, rules)
 
     if (validation.fails()) {
-      return response.status(400)
-        .json(validation.messages())
+      return response.badRequest(validation.messages())
     }
 
     let customer = new Customer()
@@ -40,9 +39,7 @@ class CustomerController {
       await user.customers().save(customer)
       return customer
     } catch(err) {
-      return response.status(500).json({
-        message: err.message,
-      })
+      return response.internalServerError(err)
     }
   }
 }
