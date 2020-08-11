@@ -9,6 +9,14 @@ class CustomerController {
     return await user.customers().fetch()
   }
 
+  async show ({ auth, params }) {
+    const user = await auth.getUser()
+    return await user.customers()
+      .with('customerContacts')
+      .where('id', params.id)
+      .fetch()
+  }
+
   async store ({ request, response, auth }) {
     const user = await auth.getUser()
     const data = request.only(['name'])

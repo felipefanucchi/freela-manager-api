@@ -4,30 +4,6 @@ const CustomerContact = use('App/Models/CustomerContact')
 const { validate } = use('Validator')
 
 class CustomerContactController {
-
-  // TODO: mover o "GET" de contatos para o "GET" do CustomerController, 
-  // retornando o cliente já com os contatos
-  async index ({ auth, request, response }) {
-    const user = await auth.getUser()
-    const data = request.only(['customer_id'])
-
-    const rules = {
-      customer_id: 'integer|required',
-    }
-
-    const validation = await validate(data, rules)
-
-    if (validation.fails()) {
-      return response.status(400)
-        .json(validation.messages());
-    }
-
-    return await user.customers()
-      .with('customerContacts')
-      .where('id', data.customer_id)
-      .fetch()
-  }
-
   async store ({ request, response, auth }) {
     const user = await auth.getUser()
     const data = request.only([
@@ -51,16 +27,25 @@ class CustomerContactController {
     const validation = await validate(data, rules)
 
     if (validation.fails()) {
-      return response.status(400)
-        .json(validation.messages());
+      return response.badRequest(validation.messages())
+    }
+
+    // TODO: criar validação "exists:customers,id" que valida existencia de 
+    // customer vinculado ao user
+    const customer = await user.customers()
+      .where('id', data.customer_id)
+      .first()
+
+    if (!customer) {
+      return response.unauthorized({
+        message: 'Cliente não encontrado ou não pertence ao usuário informado'
+      })
     }
 
     try {
       return await CustomerContact.create(data)
     } catch(err) {
-      return response.status(500).json({
-        message: err.message,
-      })
+      return response.internalServerError(err)
     }
   }
 }
