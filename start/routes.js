@@ -30,4 +30,5 @@ Route.post('/session/recover', 'SessionController.recover')
 Route.group(() => {
   // Customers routes
   Route.resource('customers', 'CustomerController').apiOnly();
+  Route.resource('customer/contacts', 'CustomerContactController').apiOnly();
 }).middleware(['auth']);
