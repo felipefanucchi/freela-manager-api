@@ -16,7 +16,7 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/users', 'UserController.create')
+Route.post('/users', 'UserController.create').validator('StoreUser');
 
-Route.post('/session', 'SessionController.login')
-Route.post('/session/recover', 'SessionController.recover')
+Route.post('/session', 'SessionController.login').validator('LoginSession');
+Route.post('/session/recover', 'SessionController.recover').validator('RecoverSession');

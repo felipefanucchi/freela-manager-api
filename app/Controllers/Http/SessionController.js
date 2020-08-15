@@ -9,18 +9,6 @@ class SessionController {
   async login({ request, auth }) {
     const {email, password, remember_me} = request.only(["email", "password", "remember_me"])
 
-    const rules = {
-      email: 'required|email|max:254',
-      password: 'required|min:6|max:30',
-      remember_me: 'boolean'
-    }
-
-    const validation = await validate({email, password, remember_me}, rules)
-
-    if (validation.fails()) {
-      return validation.messages()
-    }
-
     try{
       const token = await auth.attempt(email, password)
       return token
@@ -64,12 +52,14 @@ class SessionController {
       })
 
     try {
-      await Mail.send('emails.recover-password', {name: user.name, token: user.password_reset_token}, message => {
-        message
-          .to(user.email)
-          .from('contato@freelamanager.com')
-          .subject('Freela Manager | Recupere sua senha!')
-      })
+      await Mail.send('emails.recover-password', {name: user.name, token: user.password_reset_token},
+        message => {
+          message
+            .to(user.email)
+            .from('contato@freelamanager.com')
+            .subject('Freela Manager | Recupere sua senha!')
+        }
+      )
 
       return response.status(201).send()
     } catch(err) {
