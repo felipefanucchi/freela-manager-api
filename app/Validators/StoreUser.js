@@ -1,6 +1,7 @@
 'use strict'
+import Validator from './Validator';
 
-class StoreUser {
+class StoreUser extends Validator {
   get rules() {
     return {
       email: 'required|email|unique:users,email|max:254',

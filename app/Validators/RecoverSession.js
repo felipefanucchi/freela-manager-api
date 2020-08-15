@@ -1,6 +1,7 @@
 'use strict'
+import Validator from './Validator';
 
-class RecoverSession {
+class RecoverSession extends Validator {
   get rules() {
     return {
       email: 'required|email|max:254',
