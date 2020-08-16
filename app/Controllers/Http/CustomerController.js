@@ -2,6 +2,7 @@
 
 const Customer = use('App/Models/Customer')
 const { validate } = use('Validator')
+const Database = use('Database')
 
 class CustomerController {
   async index ({ auth }) {
@@ -17,6 +18,9 @@ class CustomerController {
       .fetch()
   }
 
+  // TODO??:
+  // Criar validação para nao permitir que um usuario já salvo em uma agencia,
+  // seja salvo novamente, em outra agencia.
   async store ({ request, response, auth }) {
     const user = await auth.getUser()
     const data = request.only(['name'])
@@ -40,6 +44,23 @@ class CustomerController {
       return customer
     } catch(err) {
       return response.internalServerError(err)
+    }
+  }
+
+  async update ({ request, response, auth, params }) {
+    const { name } = request.only(["name"])
+    const user = await auth.getUser()
+    const { id } = params;
+
+    try {
+      await user
+        .customers()
+        .where({ id })
+        .update({ name });
+
+      return response.noContent()
+    } catch(err) {
+      return response.internalServerError({ message: 'Erro ao atualizar os dados do cliente' })
     }
   }
 }
