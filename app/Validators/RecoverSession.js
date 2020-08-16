@@ -1,7 +1,8 @@
 'use strict'
-import Validator from './Validator';
 
-class RecoverSession extends Validator {
+const BaseValidator = use('./BaseValidator')
+
+class RecoverSession extends BaseValidator {
   get rules() {
     return {
       email: 'required|email|max:254',
@@ -10,9 +11,9 @@ class RecoverSession extends Validator {
 
   get messages() {
     return {
-      'email.required' : 'Email é obrigatório',
-      'email.email' : 'Insira um email válido',
-      'email.max' : 'Email deve conter menos de 255 caracteres',
+      required: (field, validation) => this.message(field, validation),
+      email: (field, validation, args) => this.message(field, validation, args),
+      max: (field, validation, args) => this.message(field, validation, args)
     }
   }
 }
