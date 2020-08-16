@@ -14,7 +14,6 @@ class SessionController {
         .attempt(email, password)
       return response.ok(token);
     } catch(err) {
-      console.log(err)
       return response.badRequest({message: 'Usuário não encontrado.'});
     }
   }
