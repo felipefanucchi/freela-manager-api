@@ -6,14 +6,16 @@ const Encryption = use('Encryption')
 const Mail = use('Mail')
 
 class SessionController {
-  async login({ request, auth }) {
+  async login({ request, response, auth }) {
     const {email, password, remember_me} = request.only(["email", "password", "remember_me"])
 
     try{
-      const token = await auth.attempt(email, password)
-      return token
+      const token = await auth
+        .attempt(email, password)
+      return response.ok(token);
     } catch(err) {
-      return err
+      console.log(err)
+      return response.badRequest({message: 'Usuário não encontrado.'});
     }
   }
 
@@ -61,9 +63,9 @@ class SessionController {
         }
       )
 
-      return response.status(201).send()
+      return response.noContent();
     } catch(err) {
-      return response.status(400).send({ message: "Erro ao enviar email, tente novamente mais tarde" })
+      return response.badRequest({ message: "Erro ao enviar email, tente novamente mais tarde" })
     }
   }
 }

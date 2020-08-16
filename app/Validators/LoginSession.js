@@ -1,6 +1,8 @@
 'use strict'
 
-class LoginSession {
+const BaseValidator = use('./BaseValidator');
+
+class LoginSession extends BaseValidator {
   get rules() {
     return {
       email: 'required|email|max:254',
@@ -15,7 +17,7 @@ class LoginSession {
       email: (field, validation, args) => this.message(field, validation, args),
       min: (field, validation, args) => this.message(field, validation, args),
       max: (field, validation, args) => this.message(field, validation, args),
-      boolean: (field, validation, args) => this.message(field, validation)
+      boolean: (field, validation) => this.message(field, validation)
     }
   }
 }
