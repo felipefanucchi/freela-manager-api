@@ -15,15 +15,8 @@
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
-const User = use("App/Models/User");
 
-Route.get('/', async () => {
-  const user = await User.create({
-    name: 'Felipe Fanucchi',
-    email: 'flfanucchi@gmail.com',
-    phone: '11983086001',
-    password: '123456'
-  });
+Route.post('/users', 'UserController.create').validator('StoreUser');
 
-  return { user }
-})
+Route.post('/session', 'SessionController.login').validator('LoginSession');
+Route.post('/session/recover', 'SessionController.recover').validator('RecoverSession');

@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test"
+    "test": "node ace test",
+    "mjml": "mjml ./resources/views/mjml/recover-password.mjml -o ./resources/views/emails/recover-password.edge"
   },
   "keywords": [
     "adonisjs",
@@ -24,9 +25,13 @@
     "@adonisjs/framework": "^5.0.9",
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
+    "@adonisjs/mail": "^3.0.10",
+    "@adonisjs/validator": "^5.0.6",
     "mysql": "^2.18.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mjml": "^4.6.3"
+  },
   "autoload": {
     "App": "./app"
   }
